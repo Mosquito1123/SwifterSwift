@@ -25,6 +25,8 @@ The changelog for **SwifterSwift**. Also see the [releases](https://github.com/S
   - Avoid crash for fonts without bold/italic traits, fallback to self like SwiftUI. [#1246](https://github.com/SwifterSwift/SwifterSwift/pull/1246) by [weihas](https://github.com/weihas)
 - **Sequence**
   - Fixed documentation for `any`.
+- **String**
+  - `isNumeric` no longer returns `true` for non-finite values such as `nan`, `inf`, `infinity` and overflowing literals like `1e999`. [#1275](https://github.com/SwifterSwift/SwifterSwift/pull/1275) by [Mosquito1123](https://github.com/Mosquito1123)
 ### Deprecated
 - **UIView**
   - `removeSubviews()` has been renamed to `removeAllSubviews()`. [#1265](https://github.com/SwifterSwift/SwifterSwift/pull/1265) by [weihas](https://github.com/weihas)
