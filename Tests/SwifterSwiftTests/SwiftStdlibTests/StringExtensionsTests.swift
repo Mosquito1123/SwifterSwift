@@ -160,6 +160,12 @@ final class StringExtensionsTests: XCTestCase {
         XCTAssertFalse("123abc".isNumeric)
         XCTAssertFalse("abc".isNumeric)
         XCTAssertFalse("123.@.".isNumeric)
+        XCTAssertFalse("nan".isNumeric)
+        XCTAssertFalse("NaN".isNumeric)
+        XCTAssertFalse("inf".isNumeric)
+        XCTAssertFalse("-inf".isNumeric)
+        XCTAssertFalse("infinity".isNumeric)
+        XCTAssertFalse("1e999".isNumeric) // overflows Double to infinity
     }
 
     func testIsDigits() {

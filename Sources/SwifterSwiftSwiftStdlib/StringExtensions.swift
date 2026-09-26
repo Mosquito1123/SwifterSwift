@@ -277,27 +277,29 @@ public extension String {
     ///    "123,456.78".isNumeric -> true (US-style grouping)
     ///    "123.456,78".isNumeric -> true (EU-style grouping)
     /// "abc".isNumeric -> false
+    ///    "nan".isNumeric -> false
+    ///    "inf".isNumeric -> false
     /// ```
     var isNumeric: Bool {
         let trimmed = trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return false }
 
-        if Double(trimmed) != nil { return true }
+        if Double(trimmed)?.isFinite == true { return true }
 
         if let lastComma = trimmed.lastIndex(of: ",") {
             if let lastDot = trimmed.lastIndex(of: ".") {
                 if lastDot > lastComma {
                     // US/UK: comma grouping, dot decimal (e.g. 123,456.78)
                     let normalized = trimmed.replacingOccurrences(of: ",", with: "")
-                    return Double(normalized) != nil
+                    return Double(normalized)?.isFinite == true
                 } else {
                     // EU: dot grouping, comma decimal (e.g. 123.456,78)
                     let normalized = trimmed.replacingOccurrences(of: ".", with: "")
                         .replacingOccurrences(of: ",", with: ".")
-                    return Double(normalized) != nil
+                    return Double(normalized)?.isFinite == true
                 }
             } else {
-                return Double(trimmed.replacingOccurrences(of: ",", with: ".")) != nil
+                return Double(trimmed.replacingOccurrences(of: ",", with: "."))?.isFinite == true
             }
         }
 
